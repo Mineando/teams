@@ -1,44 +1,7 @@
 name: Build
 on: [push]
 jobs:
-  build:
-
-    runs-on: ubuntu-24.04
-    # We want to run on external PRs, but not on our own internal PRs as they'll be run
-    # by the push to the branch.
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-
-
-    steps:
-      - name: Set up JDK 21
-        uses: actions/setup-java@v1
-        with:
-          java-version: 21
-
-      - name: Cache Gradle
-        id: cache-gradle
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle
-          key: ${{ runner.os }}-gradle
-
-      - uses: actions/checkout@v3
-
-      - name: Grant execute permission to gradlew
-        run: chmod +x gradlew
-
-      - name: Build
-        run: ./gradlew build -x test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          path: "**/build/libs"
-
   release:
-    needs: [build]
     if: github.ref == 'refs/heads/master' || 'refs/heads/beta' || github.ref == 'refs/heads/alpha'
 
     runs-on: ubuntu-24.04
