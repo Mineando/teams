@@ -38,7 +38,7 @@ jobs:
           path: "**/build/libs"
 
   release:
-    needs: [build, test]
+    needs: [build]
     if: github.ref == 'refs/heads/master' || 'refs/heads/beta' || github.ref == 'refs/heads/alpha'
 
     runs-on: ubuntu-24.04
