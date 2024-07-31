@@ -117,4 +117,11 @@ processResources {
     expand project.properties
 }
 
+jar {
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 defaultTasks 'build'
