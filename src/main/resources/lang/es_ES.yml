@@ -1,0 +1,76 @@
+gui:
+  team:
+    title: "{primary}Menú de Equipo"
+    info_title: "{primary}Información de {secondary}{team}"
+    members_button: "{primary}Ver Miembros"
+    leave_button: "{error}Salir del Equipo"
+    disband_button: "{error}Disolver Equipo"
+    create_button: "{primary}Crear Equipo"
+    enter_name: "{secondary}Ingresa el nombre del equipo en el chat:"
+  members:
+    title: "{primary}Miembros de {secondary}{team}"
+    invite_button: "{primary}Invitar Jugador"
+    back_button: "{secondary}Volver al Menú de Equipo"
+    enter_name: "{secondary}Ingresa el nombre del jugador a invitar:"
+
+team:
+  created: "{primary}¡El equipo {secondary}{name} {primary}ha sido creado!"
+  disbanded: "{error}Tu equipo ha sido disuelto."
+  joined: "{primary}Te has unido al equipo {secondary}{team}{primary}."
+  left: "{error}Has dejado tu equipo."
+  player_invited: "{secondary}{player} {primary}ha sido invitado a tu equipo. <click:run_command:/team cancel {player}><hover:show_text:'{error}Clic para cancelar la invitación'>{error}[Cancelar]</hover></click>"
+  invitation_cancelled: "{primary}Has cancelado la invitación a {secondary}{player}{primary}."
+  invitation_cancelled_by: "{secondary}{player} {error}ha cancelado tu invitación para unirte al equipo."
+  invite_received_interactive: "{primary}{inviter} te ha invitado a unirte a su equipo {secondary}{team}{primary}.<newline>
+  <click:run_command:/team accept {inviter}><hover:show_text:'{primary}Clic para aceptar'>{secondary}[Aceptar]</hover></click> 
+  <click:run_command:/team reject {inviter}><hover:show_text:'{error}Clic para rechazar'>{error}[Rechazar]</hover></click>"
+  invitation_accepted: "{primary}Has aceptado la invitación de {secondary}{player} {primary}para unirte a su equipo."
+  invitation_rejected: "{error}Has rechazado la invitación de {secondary}{player} {error}para unirte a su equipo."
+  player_joined: "{secondary}{player} {primary}ha aceptado tu invitación y se ha unido a tu equipo."
+  invitation_rejected_by: "{secondary}{player} {error}ha rechazado tu invitación para unirse al equipo."
+
+error:
+  player_only_command: "{error}Este comando solo puede ser usado por jugadores."
+  not_in_team: "{error}No estás en un equipo."
+  not_team_leader: "{error}No eres el líder del equipo."
+  team_full: "{error}Tu equipo ya está lleno."
+  player_already_in_team: "{error}{player} ya está en un equipo."
+  player_not_found: "{error}Jugador {secondary}{player} {error}no encontrado o desconectado."
+  missing_player: "{error}Por favor, especifica el nombre del jugador que te invitó."
+  invalid_invitation: "{error}No tienes una invitación válida de ese jugador."
+  no_pending_invitation: "{error}No hay una invitación pendiente para {secondary}{player}{error}."
+
+action:
+  cancelled: "{secondary}Acción cancelada."
+  input_required: "{primary}Esperando entrada..."
+  cancel_instruction: "{secondary}Escribe 'cancelar' para cancelar la acción."
+
+admin:
+  help:
+    header: "Comandos de Administración de Equipos:"
+    info: "/teamadmin info <jugador> - Ver información del equipo de un jugador"
+    disband: "/teamadmin disband <equipo> - Disolver un equipo"
+    rename: "/teamadmin rename <equipo> <nuevo nombre> - Renombrar un equipo"
+    transfer: "/teamadmin transfer <equipo> <nuevo líder> - Transferir liderazgo del equipo"
+  error:
+    missing_player: "Por favor, especifica un nombre de jugador."
+    missing_team: "Por favor, especifica un nombre de equipo."
+    missing_arguments: "No hay suficientes argumentos para este comando."
+    player_not_found: "Jugador {player} no encontrado."
+    team_not_found: "Equipo {team} no encontrado."
+    disband_failed: "No se pudo disolver el equipo {team}."
+    rename_failed: "No se pudo renombrar el equipo {team}."
+    not_team_member: "{player} no es miembro del equipo {team}."
+    transfer_failed: "No se pudo transferir el liderazgo del equipo {team}."
+  info:
+    header: "Información del equipo de {player}:"
+    no_team: "{player} no está en un equipo."
+    team_name: "Nombre del Equipo: {name}"
+    team_leader: "Líder del Equipo: {leader}"
+    team_members: "Miembros: {count}"
+  disband:
+    success: "El equipo {team} ha sido disuelto."
+  rename:
+    success: "El equipo {old} ha sido renombrado a {new}."
+  transfer:
+    success: "El liderazgo del equipo {team} ha sido transferido a {leader}."

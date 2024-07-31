@@ -1,0 +1,30 @@
+# Configuración de la base de datos
+database:
+  host: localhost
+  port: 3306
+  database: teams
+  username: root
+  password: putillas
+
+# Configuración general del plugin
+settings:
+  default-language: es_ES
+  max-team-size: 4 # incluyendo al líder
+  invite-expiration-time: 60 # en segundos
+
+# Configuración de mensajes
+messages:
+  prefix: "<dark_gray>[</dark_gray><color:#bdecb6>👥</color><dark_gray>]</dark_gray>  "
+  colors:
+    primary: "<#55FFFF>"
+    secondary: "<#AAFFFF>"
+    error: "<#FF5555>"
+
+# Configuración de sonidos
+sounds:
+  team_create: ENTITY_PLAYER_LEVELUP
+  team_disband: ENTITY_IRON_GOLEM_DEATH
+  team_join: ENTITY_PLAYER_LEVELUP
+  team_leave: ENTITY_VILLAGER_NO
+  invite_send: BLOCK_NOTE_BLOCK_PLING
+  invite_receive: ENTITY_EXPERIENCE_ORB_PICKUP
