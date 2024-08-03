@@ -11,6 +11,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'idea'
+    id 'maven-publish'
 }
 
 apply from: "$rootDir/gradle/jacoco.gradle"
@@ -122,6 +123,24 @@ jar {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${project.findProperty("github.repository") ?: System.getenv("GITHUB_REPOSITORY")}")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
+        }
+    }
 }
 
 defaultTasks 'build'
