@@ -25,18 +25,44 @@ public class DatabaseManager {
 
     private void initializeDataSource() {
         FileConfiguration config = plugin.getConfig();
+        String host = config.getString("database.host");
+        int port = config.getInt("database.port");
+        String database = config.getString("database.database");
+        String username = config.getString("database.username");
+        String password = config.getString("database.password");
+
+        // First, create a connection to MySQL without specifying a database
+        String jdbcUrl = "jdbc:mariadb://" + host + ":" + port;
+        HikariConfig tempConfig = new HikariConfig();
+        tempConfig.setDriverClassName("org.mariadb.jdbc.Driver");
+        tempConfig.setJdbcUrl(jdbcUrl);
+        tempConfig.setUsername(username);
+        tempConfig.setPassword(password);
+
+        try (HikariDataSource tempDataSource = new HikariDataSource(tempConfig);
+             Connection conn = tempDataSource.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            // Create the database if it doesn't exist
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS " + database);
+
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Error creating database: " + e.getMessage());
+            return;
+        }
+
+        // Now set up the actual DataSource with the database specified
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("org.mariadb.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mariadb://" + config.getString("database.host") + ":" + config.getInt("database.port") + "/" + config.getString("database.database"));
-        hikariConfig.setUsername(config.getString("database.username"));
-        hikariConfig.setPassword(config.getString("database.password"));
+        hikariConfig.setJdbcUrl(jdbcUrl + "/" + database);
+        hikariConfig.setUsername(username);
+        hikariConfig.setPassword(password);
         hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
         dataSource = new HikariDataSource(hikariConfig);
     }
-
 
     private void createTables() {
         String createTeamsTable = "CREATE TABLE IF NOT EXISTS teams (" +
