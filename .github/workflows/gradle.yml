@@ -1,8 +1,16 @@
-name: Build
-on: [push]
+name: Build and Release
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - alpha
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  release:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/beta' || github.ref == 'refs/heads/alpha'
+  build:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -36,6 +44,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew build publish
+
+  release:
+    needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta' || github.ref == 'refs/heads/alpha')
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js v20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
 
       - name: Release
         env:
