@@ -6,7 +6,7 @@ database:
   username: root
   password: putillas
 
-# Configuración general del plugin
+# Configuración general
 settings:
   default-language: es_ES
   max-team-size: 4 # incluyendo al líder
