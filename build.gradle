@@ -139,6 +139,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from(components.java)
+            version = project.version
         }
     }
 }
