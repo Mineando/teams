@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/Mineando/teams/compare/v1.0.0...v1.0.1) (2024-08-15)
+
+
+### Bug Fixes
+
+* remove publish from build ([6ab346c](https://github.com/Mineando/teams/commit/6ab346c5523152bd15b06ad84833f9ce9421e233))
+
 # 1.0.0 (2024-08-15)
 
 
