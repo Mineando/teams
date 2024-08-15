@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/Mineando/teams/compare/v1.0.1...v1.0.2) (2024-08-15)
+
+
+### Bug Fixes
+
+* workflow publish to repo ([b8a1d80](https://github.com/Mineando/teams/commit/b8a1d8080c3afcc6d9d1e8aa2633be73883c179c))
+
 ## [1.0.1](https://github.com/Mineando/teams/compare/v1.0.0...v1.0.1) (2024-08-15)
 
 
