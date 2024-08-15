@@ -33,7 +33,7 @@ jobs:
         run: npm install -g semantic-release
 
       - name: Install Semantic Release modules
-        run: npm install @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec
+        run: npm install @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec gradle-semantic-release-plugin
 
       - name: Run Semantic Release
         env:
