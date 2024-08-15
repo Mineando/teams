@@ -40,6 +40,9 @@ jobs:
       - name: Install Semantic Release modules
         run: npm install @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/exec gradle-semantic-release-plugin
 
+      - name: Grant execute permission for update-versions.sh
+        run: chmod +x update-versions.sh
+
       - name: Run Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
