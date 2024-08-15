@@ -10,25 +10,44 @@ on:
       - main
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK 21
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Set up Node.js v20.x
-        uses: actions/setup-node@v3
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Only if you're publishing to npm as well
+        run: |
+          npx semantic-release
+
+  build_and_publish:
+    needs: release
+    if: success() && needs.release.outputs.released == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
-          node-version: "20.x"
+          java-version: '21'
+          distribution: 'temurin'
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -36,30 +55,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Grant execute permission for update-versions.sh
-        run: chmod +x update-versions.sh
-
       - name: Build and Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew build publish
-
-  release:
-    needs: build
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta' || github.ref == 'refs/heads/alpha')
-    runs-on: ubuntu-24.04
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Node.js v20.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20.x"
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_URL: "https://api.github.com/"
-        run: npx --legacy-peer-deps -p @semantic-release/changelog -p @semantic-release/git -p @semantic-release/exec -p gradle-semantic-release-plugin -p semantic-release semantic-release
+          ./gradlew build publish --info
