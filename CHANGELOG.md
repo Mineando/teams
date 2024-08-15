@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/Mineando/teams/compare/v1.0.2...v1.0.3) (2024-08-15)
+
+
+### Bug Fixes
+
+* gradle double publish ([b476032](https://github.com/Mineando/teams/commit/b476032bd209866d91bce1e04e862c36a93ad884))
+
 ## [1.0.2](https://github.com/Mineando/teams/compare/v1.0.1...v1.0.2) (2024-08-15)
 
 
