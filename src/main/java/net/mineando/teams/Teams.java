@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.kyori.adventure.text.Component;
 import co.aikar.commands.PaperCommandManager;
@@ -52,6 +53,8 @@ public class Teams extends JavaPlugin implements Listener {
         // Register listeners
         getServer().getPluginManager().registerEvents(new TeamListener(this), this);
         getServer().getPluginManager().registerEvents(this, this);
+
+        getServer().getServicesManager().register(TeamsAPI.class, api, this, ServicePriority.Normal);
 
         pendingChatActions = new HashMap<>();
 
