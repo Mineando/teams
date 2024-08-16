@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Mineando/teams/compare/v1.1.0...v1.1.1) (2024-08-16)
+
+
+### Bug Fixes
+
+* force release ([8810d0b](https://github.com/Mineando/teams/commit/8810d0b0b9b2138287a4c1d2c4b5c743f560a3d5))
+
 # [1.1.0](https://github.com/Mineando/teams/compare/v1.0.3...v1.1.0) (2024-08-16)
 
 
