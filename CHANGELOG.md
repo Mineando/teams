@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Mineando/teams/compare/v1.0.3...v1.1.0) (2024-08-16)
+
+
+### Features
+
+* **commands:** refactor team and teamadmin command registration to use PaperCommandManager ([1db53c0](https://github.com/Mineando/teams/commit/1db53c0a4f7eea6f4e4db93f26532c1039161ee8))
+
 ## [1.0.3](https://github.com/Mineando/teams/compare/v1.0.2...v1.0.3) (2024-08-15)
 
 
