@@ -1,76 +1,28 @@
 package net.mineando.teams.commands;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.*;
 import net.mineando.teams.Teams;
 import net.mineando.teams.database.models.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public class TeamAdminCommand implements CommandExecutor {
+@CommandAlias("teamadmin")
+@CommandPermission("teams.admin")
+public class TeamAdminCommand extends BaseCommand {
     private final Teams plugin;
 
     public TeamAdminCommand(Teams plugin) {
         this.plugin = plugin;
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length < 1) {
-            sendHelpMessage(sender);
-            return true;
-        }
-
-        switch (args[0].toLowerCase()) {
-            case "info":
-                if (args.length < 2) {
-                    sender.sendMessage(plugin.getLangManager().getChatMessage("admin.error.missing_player"));
-                    return true;
-                }
-                handleInfoCommand(sender, args[1]);
-                break;
-            case "disband":
-                if (args.length < 2) {
-                    sender.sendMessage(plugin.getLangManager().getChatMessage("admin.error.missing_team"));
-                    return true;
-                }
-                handleDisbandCommand(sender, args[1]);
-                break;
-            case "rename":
-                if (args.length < 3) {
-                    sender.sendMessage(plugin.getLangManager().getChatMessage("admin.error.missing_arguments"));
-                    return true;
-                }
-                handleRenameCommand(sender, args[1], args[2]);
-                break;
-            case "transfer":
-                if (args.length < 3) {
-                    sender.sendMessage(plugin.getLangManager().getChatMessage("admin.error.missing_arguments"));
-                    return true;
-                }
-                handleTransferCommand(sender, args[1], args[2]);
-                break;
-            default:
-                sendHelpMessage(sender);
-                break;
-        }
-
-        return true;
-    }
-
-    private void sendHelpMessage(CommandSender sender) {
-        sender.sendMessage(plugin.getLangManager().getChatMessage("admin.help.header"));
-        sender.sendMessage(plugin.getLangManager().getChatMessage("admin.help.info"));
-        sender.sendMessage(plugin.getLangManager().getChatMessage("admin.help.disband"));
-        sender.sendMessage(plugin.getLangManager().getChatMessage("admin.help.rename"));
-        sender.sendMessage(plugin.getLangManager().getChatMessage("admin.help.transfer"));
-    }
-
-    private void handleInfoCommand(CommandSender sender, String playerName) {
+    @Subcommand("info")
+    @CommandCompletion("@players")
+    public void onInfo(CommandSender sender, String playerName) {
         Player target = Bukkit.getPlayer(playerName);
         if (target == null) {
             sender.sendMessage(plugin.getLangManager().getChatMessage("admin.error.player_not_found", "player", playerName));
@@ -90,7 +42,9 @@ public class TeamAdminCommand implements CommandExecutor {
         sender.sendMessage(plugin.getLangManager().getChatMessage("admin.info.team_members", "count", team.getMembers().size()));
     }
 
-    private void handleDisbandCommand(CommandSender sender, String teamName) {
+    @Subcommand("disband")
+    @CommandCompletion("@teams")
+    public void onDisband(CommandSender sender, String teamName) {
         Optional<Team> teamOpt = plugin.getTeamManager().getAllTeams().stream()
                 .filter(team -> team.getName().equalsIgnoreCase(teamName))
                 .findFirst();
@@ -108,7 +62,9 @@ public class TeamAdminCommand implements CommandExecutor {
         }
     }
 
-    private void handleRenameCommand(CommandSender sender, String teamName, String newName) {
+    @Subcommand("rename")
+    @CommandCompletion("@teams")
+    public void onRename(CommandSender sender, String teamName, String newName) {
         Optional<Team> teamOpt = plugin.getTeamManager().getAllTeams().stream()
                 .filter(team -> team.getName().equalsIgnoreCase(teamName))
                 .findFirst();
@@ -126,7 +82,9 @@ public class TeamAdminCommand implements CommandExecutor {
         }
     }
 
-    private void handleTransferCommand(CommandSender sender, String teamName, String newLeaderName) {
+    @Subcommand("transfer")
+    @CommandCompletion("@teams @players")
+    public void onTransfer(CommandSender sender, String teamName, String newLeaderName) {
         Optional<Team> teamOpt = plugin.getTeamManager().getAllTeams().stream()
                 .filter(team -> team.getName().equalsIgnoreCase(teamName))
                 .findFirst();

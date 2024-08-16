@@ -4,14 +4,6 @@ main: net.mineando.teams.Teams
 api-version: '1.13'
 authors: [Mineando]
 description: Un plugin de equipos para Minecraft
-commands:
-  team:
-    description: Abre el menú principal de equipos
-    usage: /<command>
-  teamadmin:
-    description: Comandos de administración de equipos
-    usage: /<command> <subcommand> [args]
-    permission: teams.admin
 permissions:
   teams.admin:
     description: Permite usar comandos de administración de equipos

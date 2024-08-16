@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.kyori.adventure.text.Component;
+import co.aikar.commands.PaperCommandManager;
 import java.time.Duration;
 
 import java.time.Duration;
@@ -31,6 +32,7 @@ public class Teams extends JavaPlugin implements Listener {
     private LangManager langManager;
     private TeamUtils teamUtils;
     private TeamsAPI api;
+    private PaperCommandManager commandManager;
 
     private Map<UUID, ChatAction> pendingChatActions;
 
@@ -44,9 +46,8 @@ public class Teams extends JavaPlugin implements Listener {
         teamUtils = new TeamUtils(this);
         api = new TeamsAPI(this);
 
-        // Register commands
-        getCommand("team").setExecutor(new TeamCommand(this));
-        getCommand("teamadmin").setExecutor(new TeamAdminCommand(this));
+        this.commandManager = new PaperCommandManager(this);
+        registerCommands();
 
         // Register listeners
         getServer().getPluginManager().registerEvents(new TeamListener(this), this);
@@ -61,6 +62,10 @@ public class Teams extends JavaPlugin implements Listener {
     public void onDisable() {
         // Perform cleanup if necessary
         getLogger().info("Teams plugin has been disabled!");
+    }
+    private void registerCommands() {
+        commandManager.registerCommand(new TeamCommand(this));
+        commandManager.registerCommand(new TeamAdminCommand(this));
     }
 
     public ConfigManager getConfigManager() {
