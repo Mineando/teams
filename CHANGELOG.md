@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Mineando/teams/compare/v1.1.1...v1.1.2) (2024-08-16)
+
+
+### Bug Fixes
+
+* register API ([1bb4217](https://github.com/Mineando/teams/commit/1bb4217a3ba9b6f5e104a8a920a677b56b7745e6))
+
 ## [1.1.1](https://github.com/Mineando/teams/compare/v1.1.0...v1.1.1) (2024-08-16)
 
 
