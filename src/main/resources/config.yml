@@ -1,4 +1,4 @@
-# Configuración de la base de datos
+# Configuración de la BD
 database:
   host: 127.0.0.1
   port: 3306
