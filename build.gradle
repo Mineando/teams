@@ -84,7 +84,7 @@ dependencies {
     implementation 'net.kyori:adventure-platform-bukkit:4.3.3'
 
     // HikariCP
-    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'com.zaxxer:HikariCP:6.0.0'
 
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.4.1'
 
